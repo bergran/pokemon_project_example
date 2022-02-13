@@ -1,0 +1,32 @@
+version: '3'
+services:
+  django:
+    image: python:3.7.6-buster
+    ports:
+      - 8000:8000
+    container_name: pokemon_hexagon_architecture_django
+    env_file: .env
+    working_dir: /code
+    volumes:
+        - .:/code
+    command: sh -c "pip install -r requirements.txt && python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn -w 4 -t 180 -b 0.0.0.0:8000 main.wsgi"
+    depends_on:
+      - postgres
+      - redis
+    restart: unless-stopped
+  postgres:
+      image: postgres
+      container_name: pokemon_hexagon_architecture_postgres
+      env_file:
+        - .env
+      volumes:
+        - db_volume:/var/lib/postgresql/
+      restart: unless-stopped
+  redis:
+      image: redis:3.2.11
+      container_name: pokemon_hexagon_architecture_redis
+      env_file:
+        - .env
+      restart: unless-stopped
+volumes:
+  db_volume:
