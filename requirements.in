@@ -4,7 +4,7 @@ django-filter==2.4.0
 django-redis==4.12.1
 dj-rest-auth==1.1.2
 djangorestframework==3.12.1
-djangorestframework-simplejwt==4.4.0
+djangorestframework-simplejwt==4.8.0
 djangorestframework-link-header-pagination==0.1.1
 gunicorn==20.0.4
 Markdown==3.2.2
